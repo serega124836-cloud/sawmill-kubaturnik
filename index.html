@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Северная пилорама — Кубатурник пиломатериалов</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Северная пилорама">
+        <span class="brand-mark"></span>
+        <span>Северная пилорама</span>
+      </a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#kubaturnik">Кубатурник</a>
+        <a href="#process">Формула</a>
+        <a href="#products">Сечения</a>
+        <button class="nav-call" type="button" data-open-callback>Обратный вызов</button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img src="assets/sawmill-hero.png" alt="Лесовоз подает бревна на пилораму, рабочие распиливают доски и складывают их в штабель">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Пилорама с онлайн-расчетом</p>
+          <h1 id="hero-title">Распиливаем лес и сразу считаем кубатуру партии.</h1>
+          <p class="hero-copy">Кубатурник встроен в сайт: выберите сечение, укажите длину и количество, получите объем, запас и ориентировочную стоимость пиломатериала.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#kubaturnik">Открыть Кубатурник</a>
+            <button class="button secondary" type="button" data-open-callback>Заказать звонок</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Производственные показатели">
+        <div>
+          <strong id="metric-volume">0.000 м3</strong>
+          <span>итоговый объем в текущем расчете</span>
+        </div>
+        <div>
+          <strong id="metric-pieces">0 шт</strong>
+          <span>досок и бруса в ведомости</span>
+        </div>
+        <div>
+          <strong id="metric-total">0 ₽</strong>
+          <span>ориентировочная стоимость партии</span>
+        </div>
+      </section>
+
+      <section class="calculator" id="kubaturnik" aria-labelledby="calculator-title">
+        <div class="section-heading">
+          <p class="eyebrow">Кубатурник на сайте</p>
+          <h2 id="calculator-title">Рассчитайте пиломатериал перед заказом</h2>
+          <p>Размеры вводятся в миллиметрах, длина в метрах. Кубатура считается по формуле: толщина x ширина x длина x количество. Итоговую ведомость можно скопировать и отправить в заявку.</p>
+        </div>
+
+        <div class="app-shell">
+          <form class="calc-form" id="calc-form">
+            <div class="preset-row" aria-label="Быстрые сечения">
+              <button type="button" data-preset="25,100,6">25 x 100 x 6</button>
+              <button type="button" data-preset="40,150,6">40 x 150 x 6</button>
+              <button type="button" data-preset="50,150,6">50 x 150 x 6</button>
+              <button type="button" data-preset="100,100,6">100 x 100 x 6</button>
+            </div>
+
+            <div class="input-grid">
+              <label>
+                Толщина, мм
+                <input id="thickness" type="number" min="1" step="1" value="50">
+              </label>
+              <label>
+                Ширина, мм
+                <input id="width" type="number" min="1" step="1" value="150">
+              </label>
+              <label>
+                Длина, м
+                <input id="length" type="number" min="0.1" step="0.1" value="6">
+              </label>
+              <label>
+                Количество, шт
+                <input id="quantity" type="number" min="1" step="1" value="24">
+              </label>
+              <label>
+                Цена за м3, ₽
+                <input id="price" type="number" min="0" step="100" value="18500">
+              </label>
+              <label>
+                Запас, %
+                <input id="waste" type="number" min="0" step="1" value="5">
+              </label>
+            </div>
+
+            <div class="live-result" aria-live="polite">
+              <div>
+                <span>Одна штука</span>
+                <strong id="single-volume">0.045 м3</strong>
+              </div>
+              <div>
+                <span>Позиция с запасом</span>
+                <strong id="line-volume">1.134 м3</strong>
+              </div>
+              <div>
+                <span>Сумма</span>
+                <strong id="line-price">20 979 ₽</strong>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="button primary" type="submit">Добавить позицию</button>
+              <button class="button secondary dark" id="clear-list" type="button">Очистить</button>
+              <button class="button secondary dark" id="copy-list" type="button">Скопировать расчет</button>
+            </div>
+          </form>
+
+          <aside class="summary-panel" aria-label="Итоги расчета">
+            <h3>Итоги партии</h3>
+            <dl>
+              <div>
+                <dt>Позиций</dt>
+                <dd id="summary-lines">0</dd>
+              </div>
+              <div>
+                <dt>Количество</dt>
+                <dd id="summary-pieces">0 шт</dd>
+              </div>
+              <div>
+                <dt>Чистый объем</dt>
+                <dd id="summary-raw">0.000 м3</dd>
+              </div>
+              <div>
+                <dt>С запасом</dt>
+                <dd id="summary-volume">0.000 м3</dd>
+              </div>
+              <div>
+                <dt>Стоимость</dt>
+                <dd id="summary-price">0 ₽</dd>
+              </div>
+            </dl>
+            <p class="summary-note" id="copy-status">Расчет появится здесь и в верхних показателях сайта.</p>
+          </aside>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Сечение</th>
+                <th>Длина</th>
+                <th>Количество</th>
+                <th>Объем</th>
+                <th>С запасом</th>
+                <th>Сумма</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="items-body">
+              <tr class="empty-row">
+                <td colspan="7">Добавьте первую позицию, чтобы увидеть ведомость.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section process" id="process">
+        <div class="section-heading">
+          <p class="eyebrow">Формула</p>
+          <h2>Как считается кубатура</h2>
+        </div>
+        <div class="timeline">
+          <article>
+            <span>01</span>
+            <h3>Переводим размеры</h3>
+            <p>Толщину и ширину в миллиметрах приложение переводит в метры: 50 мм становится 0.05 м.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Считаем штуку</h3>
+            <p>Объем одной доски равен толщине, умноженной на ширину и длину.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Умножаем партию</h3>
+            <p>Объем одной штуки умножается на количество, чтобы получить чистую кубатуру позиции.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Добавляем запас</h3>
+            <p>Процент запаса помогает учесть подрезку, сортировку и естественные производственные отходы.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section products" id="products">
+        <div class="section-heading">
+          <p class="eyebrow">Сечения</p>
+          <h2>Частые позиции для быстрого старта</h2>
+        </div>
+        <div class="product-grid">
+          <article>
+            <h3>25 x 100</h3>
+            <p>Обрешетка, черновые настилы, упаковка, временные конструкции.</p>
+            <button type="button" data-preset="25,100,6">Взять в расчет</button>
+          </article>
+          <article>
+            <h3>50 x 150</h3>
+            <p>Стропила, лаги, каркасные элементы и ходовой строительный пиломатериал.</p>
+            <button type="button" data-preset="50,150,6">Взять в расчет</button>
+          </article>
+          <article>
+            <h3>100 x 100</h3>
+            <p>Брус для стоек, обвязки, хозяйственных построек и усиленных узлов.</p>
+            <button type="button" data-preset="100,100,6">Взять в расчет</button>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="callback-modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-callback></div>
+      <section class="callback-dialog" role="dialog" aria-modal="true" aria-labelledby="callback-title">
+        <button class="modal-close" type="button" data-close-callback aria-label="Закрыть окно">×</button>
+        <p class="eyebrow">Связь с пилорамой</p>
+        <h2 id="callback-title">Заказать обратный вызов</h2>
+        <p class="callback-copy">Оставьте контакты. После отправки сайт подготовит сделку для Bitrix24 с данными клиента и текущим расчетом Кубатурника.</p>
+
+        <form class="callback-form" id="callback-form">
+          <label>
+            Имя
+            <input id="client-name" type="text" name="name" autocomplete="name" placeholder="Иван" required>
+          </label>
+          <label>
+            Телефон
+            <input id="client-phone" type="tel" name="phone" autocomplete="tel" placeholder="+7 900 000-00-00" required>
+          </label>
+          <label>
+            Почта
+            <input id="client-email" type="email" name="email" autocomplete="email" placeholder="mail@example.ru" required>
+          </label>
+          <button class="button primary" type="submit">Заказ вызова</button>
+        </form>
+
+        <div class="deal-status" id="deal-status" aria-live="polite">
+          Заполните форму, чтобы создать сделку в Bitrix24.
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

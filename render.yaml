@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: sawmill-kubaturnik
+    env: node
+    plan: free
+    buildCommand: ""
+    startCommand: "npm start"
+    envVars:
+      - key: BITRIX_WEBHOOK_BASE_URL
+        sync: false
+      - key: BITRIX_DEAL_CATEGORY_ID
+        value: "1"
+      - key: BITRIX_DEAL_STAGE_ID
+        value: "NEW"
+      - key: BITRIX_CURRENCY
+        value: "RUB"
+      - key: BITRIX_SOURCE_ID
+        value: "WEB"
