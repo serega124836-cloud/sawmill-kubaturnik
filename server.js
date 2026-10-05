@@ -120,7 +120,7 @@ const createBitrixDeal = async ({ name, phone, email, calculation, total }) => {
     fields: {
       TITLE: `Обратный вызов: ${name}`,
       CONTACT_ID: contactId,
-      COMMENTS: `Заявка с сайта Северная пилорама\n\n${calculation || "Расчет не приложен."}`,
+      COMMENTS: `Заявка с сайта Лучший Лес\n\n${calculation || "Расчет не приложен."}`,
       OPPORTUNITY: Math.round(Number(total) || 0),
       CURRENCY_ID: bitrixConfig.currency,
       SOURCE_ID: bitrixConfig.sourceId,

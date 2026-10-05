@@ -187,7 +187,7 @@ copyList.addEventListener("click", async () => {
     return;
   }
 
-  const text = ["Кубатурник Северной пилорамы", buildCalculationText()].join("\n");
+  const text = ["Кубатурник Лучший Лес", buildCalculationText()].join("\n");
 
   try {
     await navigator.clipboard.writeText(text);
